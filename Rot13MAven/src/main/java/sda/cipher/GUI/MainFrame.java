@@ -1,5 +1,6 @@
 package sda.cipher.GUI;
 
+import sda.cipher.GUI.tool.ProccedAlgorithm;
 import tool.InputManager;
 
 import javax.swing.*;
@@ -10,6 +11,12 @@ import java.awt.event.KeyEvent;
 
 public class MainFrame extends JFrame implements ActionListener {
     private JTextArea logArea;
+    private JTextField inputField;
+    private JTextField outputField;
+    private JComboBox ciphersCombo;
+    private JRadioButton encodeRadioBtn;
+    private  JButton runAlgorithmBtn;
+
     public void startGui() {
         JFrame mainFrame = new JFrame("Crypto app");
         mainFrame.setMinimumSize(new Dimension(400, 200));
@@ -17,8 +24,14 @@ public class MainFrame extends JFrame implements ActionListener {
         mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         mainFrame.setJMenuBar(addMenuBar());
         mainFrame.add(addMainPanel());
+        setListeners();
         mainFrame.setVisible(true);
         mainFrame.pack();
+    }
+
+    private void setListeners() {
+        runAlgorithmBtn.addActionListener(new ProccedAlgorithm(inputField, outputField, ciphersCombo, encodeRadioBtn.isSelected(),logArea));
+
     }
 
     private JMenuBar addMenuBar() {
@@ -63,10 +76,9 @@ public class MainFrame extends JFrame implements ActionListener {
         constr.gridy = 1;
         panel.add(addSubPanelWithControllers(), constr);
 
-        JButton runAlgorithmBtn = new JButton("Run and let miracles happen");
+        runAlgorithmBtn = new JButton("Run and let miracles happen"); //dodajemy osbluge kodowania przekazujemy info o inp outp
         constr.gridy = 2;
-
-        constr.insets = new Insets(2, 2, 2, 2);
+        constr.insets = new Insets(5, 3, 1, 3);
         panel.add(runAlgorithmBtn, constr);
 
 
@@ -93,27 +105,21 @@ public class MainFrame extends JFrame implements ActionListener {
 
         JLabel chooseLabel = new JLabel("Choose cipher");
 
-        JTextField inputField = new JTextField("input.txt", 10);
-
-        JTextField outputField = new JTextField("output.txt", 10);
+        inputField = new JTextField("input.txt", 10);
+        outputField = new JTextField("output.txt", 10);
 
         JButton choseInput = new JButton("Select");
-        choseInput.addActionListener(new InputManager(inputField,logArea));
+        choseInput.addActionListener(new InputManager(inputField, logArea));
         JButton choseOutput = new JButton("Select");
-        choseOutput.addActionListener(new InputManager(outputField,logArea));
+        choseOutput.addActionListener(new InputManager(outputField, logArea));
 
-        JComboBox ciphersCombo = new JComboBox(new String[]{"Cesar", "ROT-13"});
+        ciphersCombo = new JComboBox(new String[]{"Cesar", "ROT-13"});
 
-        JRadioButton encodeRadioBtn = new JRadioButton("Encode");
-
+        encodeRadioBtn = new JRadioButton("Encode");
         encodeRadioBtn.setSelected(true);
-
         JRadioButton decodeRadioBtn = new JRadioButton("Decode");
-
         ButtonGroup group = new ButtonGroup();
-
         group.add(encodeRadioBtn);
-
         group.add(decodeRadioBtn);
 
         constraints.insets = new Insets(2, 2, 2, 2);
