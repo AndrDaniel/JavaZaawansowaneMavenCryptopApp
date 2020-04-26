@@ -1,3 +1,5 @@
+package Cesar;
+
 public class CesarCipher {
         private String alphabet = "abcdefghijklmnopqrstuvwxyz";
         private String base;

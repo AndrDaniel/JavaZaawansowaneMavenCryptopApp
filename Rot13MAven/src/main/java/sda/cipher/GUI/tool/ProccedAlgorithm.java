@@ -14,7 +14,7 @@ public class ProccedAlgorithm implements ActionListener {
     private  JTextArea log;
 
 
-    public ProccedAlgorithm(JTextField input, JTextField output, JComboBox ciphers, JRadioButton encode, JTextArea log) {
+    public ProccedAlgorithm(JTextField input, JTextField output, JComboBox ciphers, boolean encode, JTextArea log) {
 
 
         this.encode = encode;
